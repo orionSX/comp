@@ -1,0 +1,55 @@
+<h1>Edit Computer</h1>
+<%= form_with model: @computer, local: true do |form| %>
+  <% if @computer.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@computer.errors.count, "error") %> prohibited this computer from being saved:</h2>
+      <ul>
+        <% @computer.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :name %>
+    <%= form.text_field :name %>
+  </div>
+  <div>
+    <%= form.label :video_card %>
+    <%= form.text_field :video_card %>
+  </div>
+  <div>
+    <%= form.label :cpu %>
+    <%= form.text_field :cpu %>
+  </div>
+  <div>
+    <%= form.label :motherboard %>
+    <%= form.text_field :motherboard %>
+  </div>
+  <div>
+    <%= form.label :monitor %>
+    <%= form.text_field :monitor %>
+  </div>
+  <div>
+    <%= form.label :keyboard %>
+    <%= form.text_field :keyboard %>
+  </div>
+  <div>
+    <%= form.label :mouse %>
+    <%= form.text_field :mouse %>
+  </div>
+  <div>
+    <%= form.label :price_per_hour %>
+    <%= form.number_field :price_per_hour, step: 0.01 %>
+  </div>
+
+  <div>
+    <%= form.submit "Update Computer" %>
+  </div>
+<% end %>
+  <div class="action-links">
+
+
+<%= link_to 'Back', computers_path %>
+  </div>

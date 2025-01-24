@@ -1,0 +1,40 @@
+ <h1>Users</h1>
+
+
+  <table>
+    <tr>
+      <th>Email</th>
+      <th>Actions</th>
+    </tr>
+    <% @users.each do |user| %>
+      <tr>
+        <td><%= user.email %></td>
+        <td class="action-buttons">
+            <%= link_to "Show", user, class: "btn-show" %>
+            <%= link_to "Edit", edit_user_path(user), class: "btn-edit" %>
+            <%= button_to "Delete", user, method: :delete, form: { data: { confirm: "Are you sure?" } },class:"btn-delete" %>
+
+        </td>
+      </tr>
+    <% end %>
+  </table>
+
+  <div class="pagination">
+    <% if @page > 1 %>
+      <%= link_to "Previous", users_path(page: @page - 1, email_filter: params[:email_filter]) %>
+    <% end %>
+
+    <% (1..@total_pages).each do |page_number| %>
+      <% if page_number == @page %>
+        <span><%= page_number %></span>
+      <% else %>
+        <%= link_to page_number, users_path(page: page_number, email_filter: params[:email_filter]) %>
+      <% end %>
+    <% end %>
+
+    <% if @page < @total_pages %>
+      <%= link_to "Next", users_path(page: @page + 1, email_filter: params[:email_filter]) %>
+    <% end %>
+  </div>
+
+  <%= link_to "New User", new_user_path, class: "new-user" %>

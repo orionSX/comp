@@ -1,0 +1,44 @@
+<h1>New Reservation</h1>
+<%= form_with model: @reservation, local: true do |form| %>
+  <% if @reservation.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@reservation.errors.count, "error") %> prohibited this reservation from being saved:</h2>
+      <ul>
+        <% @reservation.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :user_id, "User" %>
+    <%= form.collection_select :user_id, User.all, :id, :email%>
+  </div>
+  <div>
+    <%= form.label :computer_id, "Computer" %>
+    <%= form.collection_select :computer_id, Computer.all, :id, :name %>
+  </div>
+    <div style="display:flex; flex-direction:column">
+      <%= form.label :start_time %>
+    <div style="display:flex; flex-direction:row; gap:5px;">
+      <%= form.datetime_select :start_time%>
+      </div>
+    </div>
+
+    <div style="display:flex; flex-direction:column">
+      <%= form.label :end_time %>
+    <div style="display:flex; flex-direction:row;gap:5px">
+      <%= form.datetime_select :end_time %>
+      </div>
+    </div>
+
+  <div>
+    <%= form.submit "Create Reservation" %>
+  </div>
+<% end %>
+  <div class="action-links">
+
+
+  <%= link_to 'Back', reservations_path, class: 'back-link' %>
+  </div>

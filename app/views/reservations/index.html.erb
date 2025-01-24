@@ -1,0 +1,36 @@
+<h1>Reservations</h1>
+<table>
+  <tr>
+    <th>Computer</th>
+    <th>Start Time</th>
+    <th>End Time</th>
+    <th>Actions</th>
+  </tr>
+  <% @reservations.each do |reservation| %>
+    <tr>
+      <td><%= reservation.computer.name %></td>
+      <td><%= reservation.start_time.strftime('%H:%M %d.%m.%Y ')%> </td>
+      <td><%= reservation.end_time.strftime(' %H:%M %d.%m.%Y')%></td>
+      <td class="action-buttons"><%= link_to "Show", reservation, class: "btn-show" %>  <%= link_to "Edit", edit_reservation_path(reservation),class: "btn-edit" %>  <%=button_to "Delete", reservation, method: :delete,form:{ data: { confirm: "Are you sure?" }}, class:"btn-delete" %></td>
+
+    </tr>
+  <% end %>
+</table>
+  <div class="pagination">
+    <% if @page > 1 %>
+      <%= link_to "Previous", reservations_path(page: @page - 1, email_filter: params[:email_filter]) %>
+    <% end %>
+
+    <% (1..@total_pages).each do |page_number| %>
+      <% if page_number == @page %>
+        <span><%= page_number %></span>
+      <% else %>
+        <%= link_to page_number, reservations_path(page: page_number, email_filter: params[:email_filter]) %>
+      <% end %>
+    <% end %>
+
+    <% if @page < @total_pages %>
+      <%= link_to "Next", reservations_path(page: @page + 1, email_filter: params[:email_filter]) %>
+    <% end %>
+  </div>
+<%= link_to "New Reservation", new_reservation_path,class:"new-user" %>

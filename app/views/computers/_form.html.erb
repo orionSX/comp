@@ -1,0 +1,17 @@
+<%= form_with(model: computer) do |form| %>
+  <% if computer.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(computer.errors.count, "error") %> prohibited this computer from being saved:</h2>
+
+      <ul>
+        <% computer.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

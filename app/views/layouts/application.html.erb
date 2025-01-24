@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= content_for(:title) || "Comp Club" %></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= yield :head %>
+
+    <%# Enable PWA manifest for installable apps (make sure to enable in config/routes.rb too!) %>
+    <%#= tag.link rel: "manifest", href: pwa_manifest_path(format: :json) %>
+
+    <link rel="icon" href="/icon.png" type="image/png">
+    <link rel="icon" href="/icon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/icon.png">
+
+    <%# Includes all stylesheet files in app/assets/stylesheets %>
+    <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
+  </head>
+<body><header>
+    <h1>Computer Club Deluxe 2015</h1>
+    <div class="nav-buttons">
+      <%= link_to "Users", users_path, class: "btn" %>
+      <%= link_to "Computers", computers_path, class: "btn" %>
+      <%= link_to "Reservations", reservations_path, class: "btn" %>
+<%= button_to "Connect to Database", reconnect_db_path, method: :post, class: "btn db-btn" %>
+      <%= button_to "Disconnect Database", disconnect_db_path, method: :post, class: "btn db-btn" %>
+    </div>
+  </header>
+  <div id="flash-messages">
+    <% flash.each do |key, message| %>
+      <div class="alert <%= key %>">
+        <%= message %>
+        <button class="close-btn" onclick="this.parentElement.remove()">×</button>
+      </div>
+    <% end %>
+  </div>
+
+  <%= yield %>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const flashMessages = document.querySelectorAll("#flash-messages .alert");
+      flashMessages.forEach((flash) => {
+        setTimeout(() => {
+          flash.classList.add("fade-out");
+          flash.addEventListener("transitionend", () => flash.remove());
+        }, 5000); 
+      });
+    });
+  </script>
+</body>
+</html>

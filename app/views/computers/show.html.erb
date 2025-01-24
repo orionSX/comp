@@ -1,0 +1,38 @@
+<h1>Computer Details</h1>
+
+  <div class="details">
+    <p><strong>Name:</strong> <%= @computer.name %></p>
+    <p><strong>Video Card:</strong> <%= @computer.video_card %></p>
+    <p><strong>CPU:</strong> <%= @computer.cpu %></p>
+    <p><strong>Motherboard:</strong> <%= @computer.motherboard %></p>
+    <p><strong>Monitor:</strong> <%= @computer.monitor %></p>
+    <p><strong>Keyboard:</strong> <%= @computer.keyboard %></p>
+    <p><strong>Mouse:</strong> <%= @computer.mouse %></p>
+    <p><strong>Price per Hour:</strong> $<%= @computer.price_per_hour %></p>
+  </div>
+
+  <h2 style="text-align: center;">Reservations</h2>
+
+  <table class="reservations-table">
+    <tr>
+      <th>#</th>
+      <th>User</th>
+      <th>Start Time</th>
+      <th>End Time</th>
+      <th>Actions</th>
+    </tr>
+    <% @reservations.each_with_index do |reservation, index| %>
+      <tr>
+        <td><%= index + 1 %></td>
+        <td><%= reservation.user.email %></td>
+        <td><%= reservation.start_time.strftime('%H:%M %d.%m.%Y') %></td>
+        <td><%= reservation.end_time.strftime('%H:%M %d.%m.%Y') %></td>
+        <td><%= link_to "Show", reservation, style: "color: #007bff; text-decoration: none;" %></td>
+      </tr>
+    <% end %>
+  </table>
+
+  <div class="action-links">
+    <%= link_to 'Edit', edit_computer_path(@computer) %>
+    <%= link_to 'Back', computers_path %>
+  </div>

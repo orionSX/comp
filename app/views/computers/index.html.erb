@@ -1,0 +1,42 @@
+
+  <h1>Computers</h1>
+
+
+  <table>
+    <tr>
+      <th>Name</th>
+      <th>Price per Hour</th>
+      <th>Actions</th>
+    </tr>
+    <% @computers.each do |computer| %>
+      <tr>
+        <td><%= computer.name %></td>
+        <td><%= number_to_currency(computer.price_per_hour) %></td>
+        <td class="action-buttons">
+          <%= link_to "Show", computer, class: "btn-show" %>
+          <%= link_to "Edit", edit_computer_path(computer), class: "btn-edit" %>
+          <%= button_to "Delete", computer, method: :delete, form: { data: { confirm: "Are you sure?" } }, class: "btn-delete" %>
+        </td>
+      </tr>
+    <% end %>
+  </table>
+<div class="pagination">
+  <% if @page > 1 %>
+    <%= link_to "Previous", computers_path(page: @page - 1, filter: params[:filter]) %>
+  <% end %>
+
+  <% (1..@total_pages).each do |page_number| %>
+    <% if page_number == @page %>
+      <span><strong><%= page_number %></strong></span>
+    <% else %>
+      <%= link_to page_number, computers_path(page: page_number, filter: params[:filter]) %>
+    <% end %>
+  <% end %>
+
+  <% if @page < @total_pages %>
+    <%= link_to "Next", computers_path(page: @page + 1, filter: params[:filter]) %>
+  <% end %>
+</div>
+
+  <%= link_to "New Computer", new_computer_path, class: "new-user" %>
+</body>
